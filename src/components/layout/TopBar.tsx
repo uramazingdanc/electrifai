@@ -1,63 +1,34 @@
-
 import React, { useState } from 'react';
-import { 
-  Menu, Bell, Moon, Sun, Globe, ChevronDown, 
-  MessageCircle
-} from 'lucide-react';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { Menu, Bell, Moon, Sun, Globe, ChevronDown, MessageCircle } from 'lucide-react';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Button } from '@/components/ui/button';
 import { useIsMobile } from '@/hooks/use-mobile';
-
 type TopBarProps = {
   sidebarOpen: boolean;
   setSidebarOpen: (open: boolean) => void;
   userRole: 'consumer' | 'admin';
 };
-
-export const TopBar: React.FC<TopBarProps> = ({ 
-  sidebarOpen, 
+export const TopBar: React.FC<TopBarProps> = ({
+  sidebarOpen,
   setSidebarOpen,
   userRole
 }) => {
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [language, setLanguage] = useState<'english' | 'tagalog'>('english');
   const isMobile = useIsMobile();
-  
   const toggleTheme = () => {
     setTheme(theme === 'light' ? 'dark' : 'light');
   };
-  
   const toggleLanguage = () => {
     setLanguage(language === 'english' ? 'tagalog' : 'english');
   };
-
-  return (
-    <header className="bg-white h-16 border-b flex items-center px-4 sticky top-0 z-20">
-      <button
-        onClick={() => setSidebarOpen(!sidebarOpen)}
-        className="p-2 rounded-md hover:bg-gray-100 mr-4"
-        aria-label="Toggle sidebar"
-      >
-        <Menu className="h-5 w-5" />
-      </button>
+  return <header className="bg-white h-16 border-b flex items-center px-4 sticky top-0 z-20">
+      
       
       <div className="flex-1 flex items-center">
         <div className="flex items-center">
-          <img 
-            src="/lovable-uploads/453df1e7-c7ae-414d-a94a-e8126da5f274.png" 
-            alt="Smart Energy Logo" 
-            className="h-8 mr-2" 
-          />
-          <h1 className="text-xl font-bold text-electricblue md:hidden">
-            Smart Energy
-          </h1>
+          <img src="/lovable-uploads/453df1e7-c7ae-414d-a94a-e8126da5f274.png" alt="Smart Energy Logo" className="h-8 mr-2" />
+          
         </div>
         <div className="hidden md:block ml-4">
           <span className="text-sm font-medium">
@@ -66,8 +37,7 @@ export const TopBar: React.FC<TopBarProps> = ({
         </div>
       </div>
       
-      {!isMobile && (
-        <div className="flex items-center space-x-2">
+      {!isMobile && <div className="flex items-center space-x-2">
           {/* Language Toggle */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -88,17 +58,8 @@ export const TopBar: React.FC<TopBarProps> = ({
           </DropdownMenu>
           
           {/* Theme Toggle */}
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={toggleTheme}
-            className="text-gray-600"
-          >
-            {theme === 'light' ? (
-              <Moon className="h-5 w-5" />
-            ) : (
-              <Sun className="h-5 w-5" />
-            )}
+          <Button variant="ghost" size="icon" onClick={toggleTheme} className="text-gray-600">
+            {theme === 'light' ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
           </Button>
           
           {/* Notifications */}
@@ -162,16 +123,12 @@ export const TopBar: React.FC<TopBarProps> = ({
               <DropdownMenuItem>Profile</DropdownMenuItem>
               <DropdownMenuItem>Settings</DropdownMenuItem>
               <DropdownMenuSeparator />
-              {userRole === 'consumer' && (
-                <DropdownMenuItem className="text-electricblue">
+              {userRole === 'consumer' && <DropdownMenuItem className="text-electricblue">
                   Upgrade to Premium
-                </DropdownMenuItem>
-              )}
+                </DropdownMenuItem>}
               <DropdownMenuItem>Logout</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-        </div>
-      )}
-    </header>
-  );
+        </div>}
+    </header>;
 };
