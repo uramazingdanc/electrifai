@@ -45,11 +45,18 @@ export const TopBar: React.FC<TopBarProps> = ({
         <Menu className="h-5 w-5" />
       </button>
       
-      <div className="flex-1">
-        <h1 className="text-xl font-bold text-electricblue md:hidden">
-          ElectrifAI
-        </h1>
-        <div className="hidden md:block">
+      <div className="flex-1 flex items-center">
+        <div className="flex items-center">
+          <img 
+            src="/lovable-uploads/453df1e7-c7ae-414d-a94a-e8126da5f274.png" 
+            alt="ElectrifAI Logo" 
+            className="h-8 mr-2" 
+          />
+          <h1 className="text-xl font-bold text-electricblue md:hidden">
+            ElectrifAI
+          </h1>
+        </div>
+        <div className="hidden md:block ml-4">
           <span className="text-sm font-medium">
             {userRole === 'admin' ? 'Admin Portal' : 'Consumer Dashboard'}
           </span>

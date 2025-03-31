@@ -43,9 +43,20 @@ export const Sidebar: React.FC<SidebarProps> = ({ open, userRole }) => {
     )}>
       <div className="flex items-center justify-center h-16 border-b">
         {open ? (
-          <h1 className="text-xl font-bold text-electricblue">ElectrifAI</h1>
+          <div className="flex items-center">
+            <img 
+              src="/lovable-uploads/453df1e7-c7ae-414d-a94a-e8126da5f274.png" 
+              alt="ElectrifAI Logo" 
+              className="h-8 mr-2" 
+            />
+            <span className="text-xl font-bold text-electricblue">ElectrifAI</span>
+          </div>
         ) : (
-          <span className="text-2xl font-bold text-electricblue">E</span>
+          <img 
+            src="/lovable-uploads/453df1e7-c7ae-414d-a94a-e8126da5f274.png" 
+            alt="ElectrifAI Logo" 
+            className="h-8" 
+          />
         )}
       </div>
       
