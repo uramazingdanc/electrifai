@@ -1,11 +1,8 @@
 
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
 
 const Auth = () => {
@@ -14,6 +11,7 @@ const Auth = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [name, setName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoginMode, setIsLoginMode] = useState(true);
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -64,152 +62,95 @@ const Auth = () => {
         });
         navigate('/');
       }, 1000);
-    } catch (error) {
-      toast({
-        variant: "destructive",
-        title: "Signup failed",
-        description: "There was an error creating your account. Please try again.",
-      });
     } finally {
       setIsLoading(false);
     }
   };
 
+  const toggleMode = () => {
+    setIsLoginMode(!isLoginMode);
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
-      <div className="w-full max-w-md">
+    <div className="min-h-screen flex items-center justify-center bg-[#f2f6fa] p-4">
+      <div className="w-full max-w-sm">
         <div className="text-center mb-8">
-          <img 
-            src="/lovable-uploads/453df1e7-c7ae-414d-a94a-e8126da5f274.png" 
-            alt="Smart Energy Logo" 
-            className="h-16 mx-auto mb-4"
-          />
-          <h1 className="text-2xl font-bold text-electricblue">Smart Energy</h1>
-          <p className="text-gray-600">Energy management made simple</p>
+          <div className="flex justify-center items-center mb-2">
+            <span className="text-4xl font-bold bg-gradient-electric text-gradient">AI</span>
+          </div>
         </div>
         
-        <Tabs defaultValue="login" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 mb-4">
-            <TabsTrigger value="login">Login</TabsTrigger>
-            <TabsTrigger value="signup">Sign Up</TabsTrigger>
-          </TabsList>
+        <form onSubmit={isLoginMode ? handleLogin : handleSignup} className="space-y-4">
+          {!isLoginMode && (
+            <div className="space-y-2">
+              <Input 
+                placeholder="Full Name" 
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required={!isLoginMode}
+                className="bg-white shadow-sm h-12"
+              />
+            </div>
+          )}
           
-          <TabsContent value="login">
-            <Card>
-              <CardHeader>
-                <CardTitle>Login to your account</CardTitle>
-                <CardDescription>
-                  Enter your email and password to access your dashboard
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <form onSubmit={handleLogin} className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="email">Email</Label>
-                    <Input 
-                      id="email" 
-                      type="email" 
-                      placeholder="your@email.com" 
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <Label htmlFor="password">Password</Label>
-                      <a href="#" className="text-sm text-electricblue hover:underline">
-                        Forgot password?
-                      </a>
-                    </div>
-                    <Input 
-                      id="password" 
-                      type="password" 
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <Button 
-                    type="submit" 
-                    className="w-full bg-electricblue hover:bg-blue-700"
-                    disabled={isLoading}
-                  >
-                    {isLoading ? "Logging in..." : "Login"}
-                  </Button>
-                </form>
-              </CardContent>
-            </Card>
-          </TabsContent>
+          <div className="space-y-2">
+            <Input 
+              type="email" 
+              placeholder="Username/Email" 
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              className="bg-white shadow-sm h-12"
+            />
+          </div>
           
-          <TabsContent value="signup">
-            <Card>
-              <CardHeader>
-                <CardTitle>Create an account</CardTitle>
-                <CardDescription>
-                  Fill in your details to create a new account
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <form onSubmit={handleSignup} className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="name">Full Name</Label>
-                    <Input 
-                      id="name" 
-                      placeholder="Juan Cruz" 
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="signup-email">Email</Label>
-                    <Input 
-                      id="signup-email" 
-                      type="email" 
-                      placeholder="your@email.com" 
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="signup-password">Password</Label>
-                    <Input 
-                      id="signup-password" 
-                      type="password" 
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="confirm-password">Confirm Password</Label>
-                    <Input 
-                      id="confirm-password" 
-                      type="password" 
-                      value={confirmPassword}
-                      onChange={(e) => setConfirmPassword(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <Button 
-                    type="submit" 
-                    className="w-full bg-electricblue hover:bg-blue-700"
-                    disabled={isLoading}
-                  >
-                    {isLoading ? "Creating account..." : "Create Account"}
-                  </Button>
-                </form>
-              </CardContent>
-              <CardFooter className="flex justify-center">
-                <p className="text-xs text-gray-500 text-center">
-                  By signing up, you agree to our Terms of Service and Privacy Policy
-                </p>
-              </CardFooter>
-            </Card>
-          </TabsContent>
-        </Tabs>
+          <div className="space-y-2">
+            <Input 
+              type="password" 
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              className="bg-white shadow-sm h-12"
+            />
+          </div>
+          
+          {!isLoginMode && (
+            <div className="space-y-2">
+              <Input 
+                type="password" 
+                placeholder="Confirm Password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required={!isLoginMode}
+                className="bg-white shadow-sm h-12"
+              />
+            </div>
+          )}
+          
+          <Button 
+            type="submit" 
+            className="w-full bg-[#0066CC] hover:bg-blue-700 h-12"
+            disabled={isLoading}
+          >
+            {isLoading 
+              ? (isLoginMode ? "Logging in..." : "Creating account...") 
+              : (isLoginMode ? "Sign In" : "Sign Up")}
+          </Button>
+          
+          <div className="text-center mt-4">
+            <p className="text-sm text-gray-600">
+              {isLoginMode ? "No account yet?" : "Already have an account?"}{' '}
+              <button 
+                type="button"
+                onClick={toggleMode} 
+                className="text-[#0066CC] hover:underline font-medium"
+              >
+                {isLoginMode ? "Sign Up" : "Sign In"}
+              </button>
+            </p>
+          </div>
+        </form>
       </div>
     </div>
   );
