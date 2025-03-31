@@ -1,25 +1,14 @@
-
 import React from 'react';
 import { MainLayout } from '@/components/layout/MainLayout';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
-
 const Index = () => {
-  return (
-    <div className="min-h-screen flex flex-col bg-electricgray">
-      <div className="flex-1 flex flex-col items-center justify-center p-6">
+  return <div className="min-h-screen flex flex-col bg-electricgray">
+      <div className="flex-1 flex flex-col items-center justify-center p-6 bg-white">
         <div className="text-center max-w-3xl">
-          <img 
-            src="/lovable-uploads/453df1e7-c7ae-414d-a94a-e8126da5f274.png" 
-            alt="Smart Energy Logo" 
-            className="h-24 mx-auto mb-6" 
-          />
-          <h1 className="text-4xl font-bold mb-6 text-electricblue">
-            Welcome to Smart Energy
-          </h1>
-          <p className="text-xl text-gray-700 mb-8">
-            The AI-powered energy management platform designed for electricity distribution cooperatives in the Philippines.
-          </p>
+          <img src="/lovable-uploads/453df1e7-c7ae-414d-a94a-e8126da5f274.png" alt="Smart Energy Logo" className="h-24 mx-auto mb-6" />
+          
+          
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/dashboard">
@@ -41,8 +30,6 @@ const Index = () => {
           © 2023 Smart Energy - AI-powered energy management for electricity distribution cooperatives
         </p>
       </footer>
-    </div>
-  );
+    </div>;
 };
-
 export default Index;
