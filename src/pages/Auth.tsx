@@ -4,30 +4,36 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
+import { useAuth } from '@/hooks/use-auth';
 
 const Auth = () => {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isLoginMode, setIsLoginMode] = useState(true);
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { login, signup } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     
     try {
-      // This would be replaced with actual API call to backend
-      setTimeout(() => {
+      if (isLoginMode) {
+        await login(username, password);
         toast({
-          title: isLoginMode ? "Welcome back!" : "Account created!",
-          description: isLoginMode 
-            ? "You have successfully logged in."
-            : "Your account has been successfully created.",
+          title: "Welcome back!",
+          description: "You have successfully logged in.",
         });
-        navigate('/');
-      }, 1000);
+      } else {
+        await signup(username, password);
+        toast({
+          title: "Account created!",
+          description: "Your account has been successfully created.",
+        });
+      }
+      navigate('/dashboard');
     } catch (error) {
       toast({
         variant: "destructive",
@@ -44,10 +50,10 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#f2f6fa] p-4">
+    <div className="min-h-screen flex items-center justify-center bg-white p-4">
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
-          <div className="flex justify-center items-center mb-4">
+          <div className="flex justify-center items-center mb-6">
             <div className="text-4xl font-bold flex items-baseline">
               <span className="text-black">ELECTRIF</span>
               <span className="text-[#0066CC]">AI</span>
@@ -60,10 +66,10 @@ const Auth = () => {
             <Input 
               type="text" 
               placeholder="Username/Email" 
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               required
-              className="bg-white shadow-sm h-14 rounded-lg"
+              className="bg-white shadow-sm h-14 rounded-lg border border-gray-200"
             />
           </div>
           
@@ -74,7 +80,7 @@ const Auth = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="bg-white shadow-sm h-14 rounded-lg"
+              className="bg-white shadow-sm h-14 rounded-lg border border-gray-200"
             />
           </div>
           
