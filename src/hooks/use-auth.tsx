@@ -2,20 +2,30 @@
 import { useState, useEffect } from 'react';
 
 export function useAuth() {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   
   useEffect(() => {
-    // Check for authentication token in localStorage (demo only)
-    // In a real app, this would validate the token with the backend
+    // Check for authentication token in localStorage
     const hasToken = localStorage.getItem('auth_token');
     setIsAuthenticated(!!hasToken);
-    
-    // For demo purposes, set a token if none exists
-    if (!hasToken) {
-      localStorage.setItem('auth_token', 'demo_token');
-      setIsAuthenticated(true);
-    }
+    setIsLoading(false);
   }, []);
   
-  return { isAuthenticated, isLoading: isAuthenticated === null };
+  const login = () => {
+    localStorage.setItem('auth_token', 'demo_token');
+    setIsAuthenticated(true);
+  };
+  
+  const logout = () => {
+    localStorage.removeItem('auth_token');
+    setIsAuthenticated(false);
+  };
+  
+  return { 
+    isAuthenticated, 
+    isLoading,
+    login,
+    logout
+  };
 }
