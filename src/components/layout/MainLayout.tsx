@@ -34,7 +34,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
   };
 
   return (
-    <div className="h-screen flex flex-col bg-gray-50">
+    <div className="h-screen flex flex-col bg-[#f2f6fa]">
       <TopBar 
         sidebarOpen={sidebarOpen} 
         setSidebarOpen={handleToggleSidebar} 

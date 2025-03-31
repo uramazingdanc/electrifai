@@ -1,13 +1,16 @@
+
 import React, { useState } from 'react';
 import { Menu, Bell, Moon, Sun, Globe, ChevronDown, MessageCircle } from 'lucide-react';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Button } from '@/components/ui/button';
 import { useIsMobile } from '@/hooks/use-mobile';
+
 type TopBarProps = {
   sidebarOpen: boolean;
   setSidebarOpen: (open: boolean) => void;
   userRole: 'consumer' | 'admin';
 };
+
 export const TopBar: React.FC<TopBarProps> = ({
   sidebarOpen,
   setSidebarOpen,
@@ -16,14 +19,16 @@ export const TopBar: React.FC<TopBarProps> = ({
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [language, setLanguage] = useState<'english' | 'tagalog'>('english');
   const isMobile = useIsMobile();
+  
   const toggleTheme = () => {
     setTheme(theme === 'light' ? 'dark' : 'light');
   };
+  
   const toggleLanguage = () => {
     setLanguage(language === 'english' ? 'tagalog' : 'english');
   };
-  return <header className="bg-white h-16 border-b flex items-center px-4 sticky top-0 z-20">
-      
+  
+  return <header className="bg-[#f2f6fa] h-16 border-b flex items-center px-4 sticky top-0 z-20">
       
       <div className="flex-1 flex items-center">
         <div className="flex items-center">
