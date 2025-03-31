@@ -4,35 +4,15 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { useState, useEffect } from "react";
 import Index from "./pages/Index";
 import UserDashboard from "./pages/UserDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
 import NotFound from "./pages/NotFound";
 import Auth from "./pages/Auth";
 import Chat from "./pages/Chat";
+import { useAuth } from "./hooks/use-auth";
 
 const queryClient = new QueryClient();
-
-// Simple auth context - in a real app, this would be more sophisticated
-const useAuth = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
-  
-  useEffect(() => {
-    // Check for authentication token in localStorage (demo only)
-    // In a real app, this would validate the token with the backend
-    const hasToken = localStorage.getItem('auth_token');
-    setIsAuthenticated(!!hasToken);
-    
-    // For demo purposes, set a token if none exists
-    if (!hasToken) {
-      localStorage.setItem('auth_token', 'demo_token');
-      setIsAuthenticated(true);
-    }
-  }, []);
-  
-  return { isAuthenticated, isLoading: isAuthenticated === null };
-};
 
 // Protected route component
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -65,15 +45,13 @@ const App = () => {
           <Routes>
             {/* Public routes */}
             <Route path="/auth" element={
-              isAuthenticated ? <Navigate to="/" replace /> : <Auth />
+              isAuthenticated ? <Navigate to="/dashboard" replace /> : <Auth />
             } />
             
+            {/* Landing page */}
+            <Route path="/" element={<Index />} />
+            
             {/* Protected routes */}
-            <Route path="/" element={
-              <ProtectedRoute>
-                <UserDashboard />
-              </ProtectedRoute>
-            } />
             <Route path="/admin" element={
               <ProtectedRoute>
                 <AdminDashboard />
