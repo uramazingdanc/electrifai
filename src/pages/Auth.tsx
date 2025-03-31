@@ -1,8 +1,9 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/hooks/use-auth';
 
@@ -14,6 +15,16 @@ const Auth = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const { login, signup } = useAuth();
+
+  // Check localStorage for auth_mode when component mounts
+  useEffect(() => {
+    const authMode = localStorage.getItem('auth_mode');
+    if (authMode === 'signup') {
+      setIsLoginMode(false);
+      // Clear the auth_mode after using it
+      localStorage.removeItem('auth_mode');
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -54,18 +65,21 @@ const Auth = () => {
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
           <div className="flex justify-center items-center mb-6">
-            <div className="text-4xl font-bold flex items-baseline">
-              <span className="text-black">ELECTRIF</span>
-              <span className="text-[#0066CC]">AI</span>
-            </div>
+            <img 
+              src="/lovable-uploads/785a13e0-94fc-4dfe-89fc-b49436ca830c.png" 
+              alt="ElectrifAI Logo" 
+              className="h-16" 
+            />
           </div>
         </div>
         
         <form onSubmit={handleSubmit} className="space-y-5">
           <div className="space-y-2">
+            <Label htmlFor="username">Username/Email</Label>
             <Input 
+              id="username"
               type="text" 
-              placeholder="Username/Email" 
+              placeholder="Enter your username or email" 
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               required
@@ -74,9 +88,11 @@ const Auth = () => {
           </div>
           
           <div className="space-y-2">
+            <Label htmlFor="password">Password</Label>
             <Input 
+              id="password"
               type="password" 
-              placeholder="Password"
+              placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
@@ -86,7 +102,7 @@ const Auth = () => {
           
           <Button 
             type="submit" 
-            className="w-full bg-[#0066CC] hover:bg-blue-700 h-12 rounded-lg font-medium"
+            className="w-full bg-[#0099FF] hover:bg-blue-600 h-12 rounded-lg font-medium mt-6"
             disabled={isLoading}
           >
             {isLoading 
@@ -100,7 +116,7 @@ const Auth = () => {
               <button 
                 type="button"
                 onClick={toggleMode} 
-                className="text-[#0066CC] hover:underline font-medium"
+                className="text-[#0099FF] hover:underline font-medium"
               >
                 {isLoginMode ? "Sign Up" : "Sign In"}
               </button>
