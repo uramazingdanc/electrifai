@@ -12,23 +12,17 @@ const Index = () => {
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/dashboard">
-              <Button className="bg-electricblue hover:bg-blue-700 text-white px-6 py-2 text-lg">
-                Consumer Dashboard
-              </Button>
+              
             </Link>
             <Link to="/admin">
-              <Button variant="outline" className="border-electricblue text-electricblue hover:bg-electricblue hover:text-white px-6 py-2 text-lg">
-                Admin Portal
-              </Button>
+              <Button variant="outline" className="border-electricblue text-electricblue hover:bg-electricblue hover:text-white px-6 py-2 text-lg">Start </Button>
             </Link>
           </div>
         </div>
       </div>
       
       <footer className="bg-white p-6 text-center">
-        <p className="text-gray-600">
-          © 2023 Smart Energy - AI-powered energy management for electricity distribution cooperatives
-        </p>
+        
       </footer>
     </div>;
 };
