@@ -1,5 +1,6 @@
 
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
 
 interface User {
@@ -21,6 +22,7 @@ export function useAuth() {
     isLoading: true
   });
   const { toast } = useToast();
+  const navigate = useNavigate();
   
   useEffect(() => {
     // Check for authentication token in localStorage
@@ -139,6 +141,8 @@ export function useAuth() {
       title: "Logged out",
       description: "You have been successfully logged out.",
     });
+    
+    navigate('/');
   };
   
   return { 

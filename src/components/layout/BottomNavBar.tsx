@@ -3,6 +3,7 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Home, BarChart3, MessageCircle, User, Menu } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useAuth } from '@/hooks/use-auth';
 
 type BottomNavBarProps = {
   onOpenSidebar: () => void;
@@ -10,9 +11,10 @@ type BottomNavBarProps = {
 
 export const BottomNavBar: React.FC<BottomNavBarProps> = ({ onOpenSidebar }) => {
   const location = useLocation();
+  const { isAuthenticated } = useAuth();
   
   const navItems = [
-    { icon: Home, label: 'Home', path: '/' },
+    { icon: Home, label: 'Home', path: isAuthenticated ? '/dashboard' : '/' },
     { icon: BarChart3, label: 'Analytics', path: '/analytics' },
     { icon: MessageCircle, label: 'Chat', path: '/chat' },
     { icon: User, label: 'Profile', path: '/profile' },
@@ -34,11 +36,11 @@ export const BottomNavBar: React.FC<BottomNavBarProps> = ({ onOpenSidebar }) => 
               >
                 <item.icon className={cn(
                   "h-6 w-6",
-                  isActive ? "text-electricblue" : "text-gray-500"
+                  isActive ? "text-[#0099FF]" : "text-gray-500"
                 )} />
                 <span className={cn(
                   "text-xs mt-1",
-                  isActive ? "text-electricblue font-medium" : "text-gray-500"
+                  isActive ? "text-[#0099FF] font-medium" : "text-gray-500"
                 )}>
                   {item.label}
                 </span>
@@ -54,11 +56,11 @@ export const BottomNavBar: React.FC<BottomNavBarProps> = ({ onOpenSidebar }) => 
             >
               <item.icon className={cn(
                 "h-6 w-6",
-                isActive ? "text-electricblue" : "text-gray-500"
+                isActive ? "text-[#0099FF]" : "text-gray-500"
               )} />
               <span className={cn(
                 "text-xs mt-1",
-                isActive ? "text-electricblue font-medium" : "text-gray-500"
+                isActive ? "text-[#0099FF] font-medium" : "text-gray-500"
               )}>
                 {item.label}
               </span>
