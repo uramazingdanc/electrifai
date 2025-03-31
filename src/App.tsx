@@ -13,6 +13,11 @@ import Auth from "./pages/Auth";
 import Chat from "./pages/Chat";
 import Profile from "./pages/Profile";
 import Analytics from "./pages/Analytics";
+import Alerts from "./pages/Alerts";
+import Billing from "./pages/Billing";
+import Consumption from "./pages/Consumption";
+import Efficiency from "./pages/Efficiency";
+import Settings from "./pages/Settings";
 import { useAuth } from "./hooks/use-auth";
 
 const queryClient = new QueryClient();
@@ -94,9 +99,34 @@ const App = () => {
               <Analytics />
             </ProtectedRoute>
           } />
+          <Route path="/alerts" element={
+            <ProtectedRoute>
+              <Alerts />
+            </ProtectedRoute>
+          } />
+          <Route path="/billing" element={
+            <ProtectedRoute>
+              <Billing />
+            </ProtectedRoute>
+          } />
+          <Route path="/consumption" element={
+            <ProtectedRoute>
+              <Consumption />
+            </ProtectedRoute>
+          } />
+          <Route path="/efficiency" element={
+            <ProtectedRoute>
+              <Efficiency />
+            </ProtectedRoute>
+          } />
           <Route path="/chat" element={
             <ProtectedRoute>
               <Chat />
+            </ProtectedRoute>
+          } />
+          <Route path="/settings" element={
+            <ProtectedRoute>
+              <Settings />
             </ProtectedRoute>
           } />
           <Route path="/profile" element={

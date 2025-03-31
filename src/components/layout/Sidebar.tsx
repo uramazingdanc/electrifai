@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, BarChart3, AlertCircle, FileText, Settings, User, Users, Battery, Zap, MessageCircle, LogOut } from 'lucide-react';
+import { Home, BarChart3, AlertCircle, FileText, Settings, User, Battery, Zap, MessageCircle, LogOut } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { Sheet, SheetContent } from '@/components/ui/sheet';
@@ -18,6 +18,7 @@ type MenuItem = {
   label: string;
   path: string;
   adminOnly?: boolean;
+  color?: string;
 };
 
 export const Sidebar: React.FC<SidebarProps> = ({
@@ -33,7 +34,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
     {
       icon: Home,
       label: 'Dashboard',
-      path: '/dashboard'
+      path: '/dashboard',
+      color: '#0099FF'
     },
     {
       icon: BarChart3,
@@ -66,15 +68,17 @@ export const Sidebar: React.FC<SidebarProps> = ({
       path: '/chat'
     },
     {
-      icon: Users,
-      label: 'User Management',
-      path: '/users',
-      adminOnly: true
-    },
-    {
       icon: Settings,
       label: 'Settings',
       path: '/settings'
+    }
+  ];
+
+  const profileItems: MenuItem[] = [
+    {
+      icon: User,
+      label: 'Profile',
+      path: '/profile'
     }
   ];
 
@@ -125,28 +129,34 @@ export const Sidebar: React.FC<SidebarProps> = ({
               </ul>
             </nav>
             
-            <div className="p-4 border-t">
-              <Link 
-                to="/profile" 
-                className={cn(
-                  "flex items-center p-2 rounded-md hover:bg-white",
-                  location.pathname === "/profile" && "bg-white text-[#0099FF]"
-                )}
-                onClick={onClose}
-              >
-                <User className={cn(
-                  "h-5 w-5",
-                  location.pathname === "/profile" ? "text-[#0099FF]" : "text-gray-600"
-                )} />
-                <span className={cn(
-                  "ml-3",
-                  location.pathname === "/profile" && "font-medium"
-                )}>
-                  Profile
-                </span>
-              </Link>
+            <div className="border-t">
+              <ul className="px-2 pt-2">
+                {profileItems.map(item => (
+                  <li key={item.path}>
+                    <Link 
+                      to={item.path} 
+                      className={cn(
+                        "flex items-center p-2 rounded-md hover:bg-white",
+                        location.pathname === item.path && "bg-white text-[#0099FF]"
+                      )}
+                      onClick={onClose}
+                    >
+                      <item.icon className={cn(
+                        "h-5 w-5",
+                        location.pathname === item.path ? "text-[#0099FF]" : "text-gray-600"
+                      )} />
+                      <span className={cn(
+                        "ml-3",
+                        location.pathname === item.path && "font-medium"
+                      )}>
+                        {item.label}
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
               <button 
-                className="flex items-center p-2 rounded-md hover:bg-white w-full mt-2"
+                className="flex items-center p-2 rounded-md hover:bg-white w-full mt-1 mx-2"
                 onClick={handleLogout}
               >
                 <LogOut className="h-5 w-5 text-gray-600" />
@@ -205,28 +215,34 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </ul>
       </nav>
       
-      <div className="p-4 border-t">
-        <Link 
-          to="/profile" 
-          className={cn(
-            "flex items-center p-2 rounded-md hover:bg-white",
-            !open && "justify-center",
-            location.pathname === "/profile" && "bg-white text-[#0099FF]"
-          )}
-        >
-          <User className={cn(
-            "h-5 w-5",
-            location.pathname === "/profile" ? "text-[#0099FF]" : "text-gray-600"
-          )} />
-          {open && (
-            <span className={cn(
-              "ml-3",
-              location.pathname === "/profile" && "font-medium"
-            )}>
-              Profile
-            </span>
-          )}
-        </Link>
+      <div className="p-2 border-t">
+        <ul className="space-y-1">
+          {profileItems.map(item => (
+            <li key={item.path}>
+              <Link 
+                to={item.path} 
+                className={cn(
+                  "flex items-center p-2 rounded-md hover:bg-white",
+                  !open && "justify-center",
+                  location.pathname === item.path && "bg-white text-[#0099FF]"
+                )}
+              >
+                <item.icon className={cn(
+                  "h-5 w-5",
+                  location.pathname === item.path ? "text-[#0099FF]" : "text-gray-600"
+                )} />
+                {open && (
+                  <span className={cn(
+                    "ml-3",
+                    location.pathname === item.path && "font-medium"
+                  )}>
+                    {item.label}
+                  </span>
+                )}
+              </Link>
+            </li>
+          ))}
+        </ul>
         <button 
           className={cn(
             "flex items-center p-2 rounded-md hover:bg-white w-full mt-2",
