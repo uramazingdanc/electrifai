@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { MainLayout } from '@/components/layout/MainLayout';
 import { ConsumptionStats } from '@/components/dashboard/ConsumptionStats';
 import { ConsumptionChart } from '@/components/dashboard/ConsumptionChart';
-import { TheftDetection } from '@/components/dashboard/TheftDetection';
+import { TheftDetectionWrapper } from '@/components/dashboard/TheftDetectionWrapper';
 import { SmartMeterStatus } from '@/components/dashboard/SmartMeterStatus';
 import { BillingCard } from '@/components/dashboard/BillingCard';
 import { EnergyAnomalyAlert } from '@/components/dashboard/EnergyAnomalyAlert';
@@ -28,7 +28,7 @@ const UserDashboard = () => {
             <ConsumptionChart />
           </div>
           <div>
-            <TheftDetection />
+            <TheftDetectionWrapper />
           </div>
         </div>
         

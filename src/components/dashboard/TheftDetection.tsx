@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
@@ -58,7 +59,13 @@ export const TheftDetection = () => {
             <span>Anomaly Risk</span>
             <span className={`font-medium ${risk.color}`}>{risk.level}</span>
           </div>
-          <Progress value={anomalyRisk} className="h-2" indicatorClassName={getProgressColor()} />
+          <div className="relative w-full">
+            <Progress value={anomalyRisk} className={`h-2`} />
+            <div 
+              className={`absolute top-0 left-0 h-2 ${getProgressColor()} rounded-full transition-all`} 
+              style={{ width: `${anomalyRisk}%` }}
+            ></div>
+          </div>
         </div>
         
         {isHigh && (
