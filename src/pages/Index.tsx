@@ -11,11 +11,11 @@ const Index = () => {
         <div className="text-center max-w-3xl">
           <img 
             src="/lovable-uploads/453df1e7-c7ae-414d-a94a-e8126da5f274.png" 
-            alt="ElectrifAI Logo" 
+            alt="Smart Energy Logo" 
             className="h-24 mx-auto mb-6" 
           />
           <h1 className="text-4xl font-bold mb-6 text-electricblue">
-            Welcome to ElectrifAI
+            Welcome to Smart Energy
           </h1>
           <p className="text-xl text-gray-700 mb-8">
             The AI-powered energy management platform designed for electricity distribution cooperatives in the Philippines.
@@ -38,7 +38,7 @@ const Index = () => {
       
       <footer className="bg-white p-6 text-center">
         <p className="text-gray-600">
-          © 2023 ElectrifAI - AI-powered energy management for electricity distribution cooperatives
+          © 2023 Smart Energy - AI-powered energy management for electricity distribution cooperatives
         </p>
       </footer>
     </div>

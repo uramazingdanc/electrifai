@@ -3,13 +3,16 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { 
   Home, BarChart3, AlertCircle, FileText, Settings, 
-  User, Users, Battery, Zap, MessageCircle, LogOut 
+  User, Users, Battery, Zap, MessageCircle, LogOut, X 
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useIsMobile } from '@/hooks/use-mobile';
+import { Sheet, SheetContent } from '@/components/ui/sheet';
 
 type SidebarProps = {
   open: boolean;
   userRole: 'consumer' | 'admin';
+  onClose: () => void;
 };
 
 type MenuItem = {
@@ -19,7 +22,9 @@ type MenuItem = {
   adminOnly?: boolean;
 };
 
-export const Sidebar: React.FC<SidebarProps> = ({ open, userRole }) => {
+export const Sidebar: React.FC<SidebarProps> = ({ open, userRole, onClose }) => {
+  const isMobile = useIsMobile();
+  
   const menuItems: MenuItem[] = [
     { icon: Home, label: 'Dashboard', path: '/' },
     { icon: BarChart3, label: 'Analytics', path: '/analytics' },
@@ -36,6 +41,58 @@ export const Sidebar: React.FC<SidebarProps> = ({ open, userRole }) => {
     !item.adminOnly || (item.adminOnly && userRole === 'admin')
   );
 
+  if (isMobile) {
+    return (
+      <Sheet open={open} onOpenChange={onClose}>
+        <SheetContent side="left" className="p-0 w-64">
+          <div className="flex flex-col h-full">
+            <div className="flex items-center justify-between h-16 px-4 border-b">
+              <div className="flex items-center">
+                <img 
+                  src="/lovable-uploads/453df1e7-c7ae-414d-a94a-e8126da5f274.png" 
+                  alt="Smart Energy Logo" 
+                  className="h-8 mr-2" 
+                />
+                <span className="text-xl font-bold text-electricblue">Smart Energy</span>
+              </div>
+              <button onClick={onClose} className="p-1">
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+            
+            <nav className="flex-1 overflow-y-auto py-4">
+              <ul className="space-y-1 px-2">
+                {filteredItems.map((item) => (
+                  <li key={item.path}>
+                    <Link 
+                      to={item.path} 
+                      className="flex items-center p-2 rounded-md hover:bg-electricgray group"
+                      onClick={onClose}
+                    >
+                      <item.icon className="h-5 w-5 text-electricblue" />
+                      <span className="ml-3">{item.label}</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+            
+            <div className="p-4 border-t">
+              <Link to="/profile" className="flex items-center p-2 rounded-md hover:bg-electricgray" onClick={onClose}>
+                <User className="h-5 w-5 text-gray-600" />
+                <span className="ml-3">Profile</span>
+              </Link>
+              <button className="flex items-center p-2 rounded-md hover:bg-electricgray w-full mt-2">
+                <LogOut className="h-5 w-5 text-gray-600" />
+                <span className="ml-3">Logout</span>
+              </button>
+            </div>
+          </div>
+        </SheetContent>
+      </Sheet>
+    );
+  }
+
   return (
     <aside className={cn(
       "bg-white fixed inset-y-0 left-0 z-10 flex flex-col transition-all duration-300 border-r",
@@ -46,15 +103,15 @@ export const Sidebar: React.FC<SidebarProps> = ({ open, userRole }) => {
           <div className="flex items-center">
             <img 
               src="/lovable-uploads/453df1e7-c7ae-414d-a94a-e8126da5f274.png" 
-              alt="ElectrifAI Logo" 
+              alt="Smart Energy Logo" 
               className="h-8 mr-2" 
             />
-            <span className="text-xl font-bold text-electricblue">ElectrifAI</span>
+            <span className="text-xl font-bold text-electricblue">Smart Energy</span>
           </div>
         ) : (
           <img 
             src="/lovable-uploads/453df1e7-c7ae-414d-a94a-e8126da5f274.png" 
-            alt="ElectrifAI Logo" 
+            alt="Smart Energy Logo" 
             className="h-8" 
           />
         )}
