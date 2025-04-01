@@ -23,14 +23,10 @@ const Index = () => {
                 </Button>
               </Link> : <>
                 <Link to="/auth">
-                  <Button className="bg-[#0099FF] hover:bg-blue-600 text-lg h-auto px-[67px] py-[6px]">
-                    Sign In
-                  </Button>
+                  <Button className="text-lg h-auto px-[67px] py-[6px] rounded-lg text-blue-50 bg-blue-600 hover:bg-blue-500">Start </Button>
                 </Link>
                 <Link to="/auth">
-                  <Button variant="outline" onClick={() => localStorage.setItem('auth_mode', 'signup')} className="border-[#0099FF] px-8 text-lg h-auto text-slate-50 py-[6px] bg-zinc-950 hover:bg-zinc-800">
-                    Create Account
-                  </Button>
+                  
                 </Link>
               </>}
           </div>
