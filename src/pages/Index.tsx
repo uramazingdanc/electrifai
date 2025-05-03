@@ -3,7 +3,7 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { useAuth } from '@/hooks/use-auth';
-import { BrainCircuit, Zap, AlertTriangle, VoiceIcon, Bot } from 'lucide-react';
+import { BrainCircuit, Zap, AlertTriangle, Mic, Bot } from 'lucide-react';
 
 const Index = () => {
   const { isAuthenticated } = useAuth();
@@ -61,7 +61,7 @@ const Index = () => {
               </div>
               <div className="flex items-start">
                 <div className="bg-blue-100 rounded-full p-2 mr-3">
-                  <VoiceIcon className="h-5 w-5 text-[#0099FF]" />
+                  <Mic className="h-5 w-5 text-[#0099FF]" />
                 </div>
                 <div className="text-left">
                   <h4 className="font-semibold">Voice Control</h4>
