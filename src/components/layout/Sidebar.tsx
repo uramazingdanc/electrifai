@@ -37,6 +37,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
     label: 'Analytics',
     path: '/analytics'
   }, {
+    icon: Zap,
+    label: 'Consumption',
+    path: '/consumption'
+  }, {
     icon: AlertCircle,
     label: 'Alerts',
     path: '/alerts'
@@ -44,10 +48,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
     icon: FileText,
     label: 'Billing',
     path: '/billing'
-  }, {
-    icon: Zap,
-    label: 'Consumption',
-    path: '/consumption'
   }, {
     icon: Battery,
     label: 'Efficiency',
