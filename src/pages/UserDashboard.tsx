@@ -16,7 +16,7 @@ const UserDashboard = () => {
   return (
     <MainLayout userRole="consumer">
       <div className="container mx-auto">
-        <h1 className="text-2xl font-bold mb-6">Welcome to ElectrifAI</h1>
+        <h1 className="text-2xl font-bold mb-6 font-dm-sans">Welcome to ElectrifAI</h1>
         
         {showAlert && (
           <EnergyAnomalyAlert onDismiss={() => setShowAlert(false)} />

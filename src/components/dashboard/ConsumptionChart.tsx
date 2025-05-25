@@ -1,8 +1,8 @@
 
 import React from 'react';
 import {
-  AreaChart,
-  Area,
+  BarChart,
+  Bar,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -63,62 +63,56 @@ export const ConsumptionChart = () => {
   return (
     <Card className="shadow-card">
       <CardHeader className="pb-2">
-        <CardTitle className="text-lg flex justify-between items-center">
+        <CardTitle className="text-lg flex justify-between items-center font-dm-sans">
           <span>Energy Consumption</span>
         </CardTitle>
       </CardHeader>
       <CardContent>
         <Tabs defaultValue="daily">
           <TabsList className="mb-4">
-            <TabsTrigger value="daily">Daily</TabsTrigger>
-            <TabsTrigger value="weekly">Weekly</TabsTrigger>
-            <TabsTrigger value="monthly">Monthly</TabsTrigger>
+            <TabsTrigger value="daily" className="font-inter">Daily</TabsTrigger>
+            <TabsTrigger value="weekly" className="font-inter">Weekly</TabsTrigger>
+            <TabsTrigger value="monthly" className="font-inter">Monthly</TabsTrigger>
           </TabsList>
           
           {(Object.keys(tabData) as Array<keyof typeof tabData>).map((key) => (
             <TabsContent key={key} value={key} className="h-[300px]">
               <ResponsiveContainer width="100%" height="100%">
-                <AreaChart data={tabData[key].data}>
-                  <defs>
-                    <linearGradient id="colorConsumption" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#0066CC" stopOpacity={0.8} />
-                      <stop offset="95%" stopColor="#0066CC" stopOpacity={0} />
-                    </linearGradient>
-                    <linearGradient id="colorAverage" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#00CC66" stopOpacity={0.8} />
-                      <stop offset="95%" stopColor="#00CC66" stopOpacity={0} />
-                    </linearGradient>
-                  </defs>
+                <BarChart data={tabData[key].data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
                   <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                  <XAxis dataKey="time" />
+                  <XAxis dataKey="time" className="font-inter" />
                   <YAxis 
                     domain={['auto', 'auto']}
                     label={{ 
                       value: tabData[key].unit, 
                       angle: -90, 
                       position: 'insideLeft',
-                      style: { textAnchor: 'middle' }
+                      style: { textAnchor: 'middle', fontFamily: 'Inter' }
                     }}
+                    className="font-inter"
                   />
-                  <Tooltip />
-                  <Legend />
-                  <Area
-                    type="monotone"
+                  <Tooltip 
+                    contentStyle={{ 
+                      backgroundColor: 'white', 
+                      border: '1px solid #ccc', 
+                      borderRadius: '8px',
+                      fontFamily: 'Inter'
+                    }} 
+                  />
+                  <Legend wrapperStyle={{ fontFamily: 'Inter' }} />
+                  <Bar
                     dataKey="consumption"
-                    stroke="#0066CC"
-                    fillOpacity={1}
-                    fill="url(#colorConsumption)"
+                    fill="#0066CC"
                     name="Your Consumption"
+                    radius={[2, 2, 0, 0]}
                   />
-                  <Area
-                    type="monotone"
+                  <Bar
                     dataKey="average"
-                    stroke="#00CC66"
-                    fillOpacity={1}
-                    fill="url(#colorAverage)"
+                    fill="#00CC66"
                     name="Average Consumption"
+                    radius={[2, 2, 0, 0]}
                   />
-                </AreaChart>
+                </BarChart>
               </ResponsiveContainer>
             </TabsContent>
           ))}

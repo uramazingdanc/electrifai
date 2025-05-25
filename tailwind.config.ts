@@ -68,6 +68,10 @@ export default {
 				electricred: '#CC3300',
 				electricgray: '#F1F5F9',
 			},
+			fontFamily: {
+				'dm-sans': ['DM Sans', 'sans-serif'],
+				'inter': ['Inter', 'sans-serif'],
+			},
 			borderRadius: {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',

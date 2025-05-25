@@ -50,15 +50,15 @@ export const ConsumptionStats = () => {
           <CardContent className="pt-6">
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-500">{stat.title}</p>
-                <p className="text-2xl font-bold mt-1">{stat.value}</p>
+                <p className="text-sm font-medium text-gray-500 font-inter">{stat.title}</p>
+                <p className="text-2xl font-bold mt-1 font-dm-sans">{stat.value}</p>
                 <div className="flex items-center mt-1">
                   {stat.isIncrease ? (
                     <TrendingUp className="h-4 w-4 mr-1 text-electricred" />
                   ) : (
                     <TrendingDown className="h-4 w-4 mr-1 text-electricgreen" />
                   )}
-                  <span className={stat.isIncrease ? 'text-electricred' : 'text-electricgreen'}>
+                  <span className={`${stat.isIncrease ? 'text-electricred' : 'text-electricgreen'} font-inter`}>
                     {stat.change} from last period
                   </span>
                 </div>
